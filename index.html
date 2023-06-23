@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ECG App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <h1>ECG App</h1>
+    <div id="ecgData"></div>
+
+    <script>
+        $(document).ready(function() {
+            var url = "http://localhost:5500/id/" + getParameterValue("itr");  // Modify the URL pattern to include the variable value
+
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                success: function(data) {
+                    // Process the returned JSON data and display it on the page
+                    var ecgData = JSON.stringify(data);
+                    $('#ecgData').text(ecgData);
+                }
+            });
+        });
+
+        function getParameterValue(parameter) {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(parameter);
+        }
+    </script>
+</body>
+</html>
